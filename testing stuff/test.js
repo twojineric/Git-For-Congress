@@ -6,13 +6,32 @@ document.getElementById('inputfile').addEventListener('change', function() {
     fr.onload = function() {
         //document.getElementById('test').textContent = fr.result;
         json = fr.result;
-        parseSection();
+        if(fileName.includes('json'))
+            parseSection();
+        else
+        {
+            parseSectionText();
+        }
     };
-
+    var fileName = this.files[0].name;
     fr.readAsText(this.files[0]);
 });
 
+function parseSectionText()
+{
+    let object = json;
+    let section = vals[0].value;
 
+    let location = 'substructure-location'
+    for(let i = 0; i < section.length; i++)
+    {
+        location += '_' + section.charAt(i);
+    }
+    let index = object.indexOf(location);
+    let nextIndex = object.indexOf('substructure-location', index+1);
+    let statement = object.substring(index + location.length, nextIndex);
+    document.getElementById('test').textContent = statement;
+}
 function parseSection()
 {
     let object = JSON.parse(json);
@@ -34,7 +53,21 @@ function parseSection()
         subsection = subsection.charCodeAt(0) - 97;
     */
     
-    let tester = object.bill['legis-body'][0]['section'][section-1];
+    let sections = object.bill['legis-body'][0];
+    var count = 0;
+    for(let i = 0; i < sections['section'].length; i++)
+    {
+        //console.log(sections['section'][i]['enum'][0]);
+
+        if(sections['section'][i]['enum'] == section + '.')
+        {
+            var index = i;
+        }       
+    }
+
+    //console.log(count);
+    //console.log(sections['section'].length);
+    let tester = object.bill['legis-body'][0]['section'][index];
 
     /*
     if(tester['subsection'] != null || subsection != null)
