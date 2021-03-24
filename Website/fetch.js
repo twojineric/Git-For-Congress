@@ -3,7 +3,6 @@ var lenBefore = 0;
 
 function getLink() {            
     clear();
-    nodesAdded = 0;
     
     // Get Input Values
     var h1, h2;
@@ -38,28 +37,44 @@ function getLink() {
         var i;
         var element;
         var link;
-        nodesAdded = info.length;
         document.getElementById("p2").innerHTML="<b>"+data.results[0].bill + 
             " Congress " + data.results[0].congress+"<b>";
 
-        // Create hyperlinks
+        // Create buttons
         for(i = 0; i < info.length; i++) {
             var br = document.createElement("br");
-            element = document.createElement("a");
+            element = document.createElement("button");
             link = document.createTextNode(info[i].status);
             element.appendChild(link);
             element.title = info[i].status;
-            element.href = info[i].url;
-            element.target = "_blank";
-            element.appendChild(br);
+            element.addEventListener("click",search,false);
+            element.myParam=info[i].url;
+            element.style.width='150px';
             document.body.appendChild(element);
+            document.body.appendChild(br);
         }
     })     
     
     function clear() {
-        var i;
-        for(i = 0; i < nodesAdded; i++) {
+        while(lenBefore != 0 && document.body.childNodes.length > lenBefore) {
             document.body.removeChild(document.body.childNodes[lenBefore]);
         }
+    }
+
+    function search(event) {
+        var xml = event.currentTarget.myParam;
+        
+        
+        
+        /*
+        fetch(xml, {mode : 'no-cors'})
+        .then(res => res.text())
+        .then(function(data) {
+            var json = xmlToJson(new DOMParser().parseFromString(data, 'text/xml'));
+            console.log(json);
+        })
+
+        document.getElementById("p3").innerHTML=xml;
+        */
     }
 }
