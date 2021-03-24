@@ -1,6 +1,7 @@
 var lenBefore = 0;
 var lenBefore2 = 0;
 var lenBefore3 = 0;
+var outNode;
 
 function getLink() {            
     clear(lenBefore);
@@ -63,16 +64,27 @@ function getLink() {
     }
 
     // Create input box fields and submit button
-    function searchSetup(event) {
+    async function searchSetup(event) {
         var xml = event.currentTarget.myParam;
-
-        // Debugging
-        document.getElementById("p3").innerHTML=xml;
-
-        var json = "EricFunction()";
-
+        var jXml;
         clear(lenBefore2);
         lenBefore2 = document.body.childNodes.length;
+
+        let j = { url: xml };
+                console.log(j);
+                await fetch("http://localhost:3000/getxml", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(j)
+                })
+                .then(resp => resp.json())
+                .then(body => {
+                    let e = document.createElement('p');
+                    e.textContent = JSON.stringify(body.file.bill);
+                    jXml = e.textContent;
+                });
 
         document.body.appendChild(document.createElement("br"));
         var para1 = document.createElement("p");
@@ -86,38 +98,26 @@ function getLink() {
         document.body.appendChild(input1);
         document.body.appendChild(document.createElement("br"));
 
-        // Remove this input later
-        var input2 = document.createElement("input");
-        input2.type = "text";
-        input2.id = "inp2";
-        input2.placeholder = "Dump Text Here";
-        document.body.appendChild(input2);
-        document.body.appendChild(document.createElement("br")); 
-
         var button1 = document.createElement("button");
         button1.appendChild(document.createTextNode("Submit"));
         button1.title = "Submit";
+        button1.myParam = jXml;
         button1.addEventListener("click",search,false);
         document.body.append(button1);
     }
 
     function search() {
         clear(lenBefore3);
-        var section,text;
-        section = document.getElementById("inp1").value;
-        text = document.getElementById("inp2").value;
-
-        // IainFunction(section,text);
-
-        var output = "ReplaceThis";
+        vals = document.getElementById("inp1").value;
+        json = event.currentTarget.myParam;
         lenBefore3 = document.body.childNodes.length;
 
         var para1 = document.createElement("p");
-        para1.innerHTML = `<b>Section ${section}:</b>`;
+        para1.innerHTML = `<b>Section ${vals}:</b>`;
         document.body.appendChild(para1);
 
-        var outNode = document.createElement("p");
-        outNode.innerText = output;
+        outNode = document.createElement("p");
+        parseSection();
         document.body.appendChild(outNode);  
     }
 }
