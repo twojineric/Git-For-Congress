@@ -4,6 +4,8 @@ var lenBefore3 = 0;
 var outNode;
 
 function getLink() {            
+    lenBefore2 = 0;
+    lenBefore3 = 0;
     clear(lenBefore);
     
     // Get Input Values
@@ -30,7 +32,7 @@ function getLink() {
         console.log(data);
 
         if(data.results == null) {
-            document.getElementById("p1").innerHTML="Input Valid Bill ex. HR 116, 115";
+            document.getElementById("p1").innerHTML="Input Valid Bill ex. hr115, 115";
             document.getElementById("p2").innerHTML="";
             return;
         }
@@ -51,6 +53,7 @@ function getLink() {
             element.title = info[i].status;
             element.addEventListener("click",searchSetup,false);
             element.myParam=info[i].url;
+            element.id = "elem1";
             element.style.width="150px";
             document.body.appendChild(element);
             document.body.appendChild(br);
@@ -65,7 +68,7 @@ function getLink() {
 
     // Create input box fields and submit button
     async function searchSetup(event) {
-        var xml = event.currentTarget.myParam;
+        var xml = document.getElementById("elem1").myParam;
         var jXml;
         clear(lenBefore2);
         lenBefore2 = document.body.childNodes.length;
@@ -94,13 +97,41 @@ function getLink() {
         var input1 = document.createElement("input");
         input1.type = "text";
         input1.id = "inp1";
-        input1.placeholder = "1";
+
+        // Change this back to 1
+        input1.placeholder = "Command";
         document.body.appendChild(input1);
         document.body.appendChild(document.createElement("br"));
+
+
+        // User input
+        var input2 = document.createElement("input");
+        input2.type = "text";
+        input2.id = "inp2";
+        input2.placeholder = "Target";
+        document.body.appendChild(input2);
+        document.body.appendChild(document.createElement("br"));
+
+        var input3 = document.createElement("input");
+        input3.type = "text";
+        input3.id = "inp3";
+        input3.placeholder = "Replacement";
+        document.body.appendChild(input3);
+        document.body.appendChild(document.createElement("br"));
+
+        var input4 = document.createElement("input");
+        input4.type = "text";
+        input4.id = "inp4";
+        input4.placeholder = "Dump Text Here";
+        document.body.appendChild(input4);
+        document.body.appendChild(document.createElement("br"));
+        // May delete later
+        
 
         var button1 = document.createElement("button");
         button1.appendChild(document.createTextNode("Submit"));
         button1.title = "Submit";
+        button1.id = "but1";
         button1.myParam = jXml;
         button1.addEventListener("click",search,false);
         document.body.append(button1);
@@ -109,15 +140,60 @@ function getLink() {
     function search() {
         clear(lenBefore3);
         vals = document.getElementById("inp1").value;
-        json = event.currentTarget.myParam;
+        json = document.getElementById("but1").myParam;
         lenBefore3 = document.body.childNodes.length;
 
         var para1 = document.createElement("p");
         para1.innerHTML = `<b>Section ${vals}:</b>`;
         document.body.appendChild(para1);
-
         outNode = document.createElement("p");
+        
+        /*
+        Uncomment this later
+        // updateVariables();
         parseSection();
+        */
+        
+        
+        var command,target,replaceWith,temp;
+
+        // Take User Input
+        command = document.getElementById("inp1").value;
+        target = document.getElementById("inp2").value;
+        replaceWith = document.getElementById("inp3").value;
+        outNode.innerHTML = document.getElementById("inp4").value;        
+        // May Remove Later
+        
+        if(command == 1) {
+            // Strike and Insert
+            temp = target;
+            temp = temp.strike();
+            temp = temp + " " + replaceWith;
+            outNode.innerHTML = outNode.innerHTML.replaceAll(target,temp);
+        }
+        else if (command == 2) {
+            // Strike a Section
+            // Iain's Function to return a section
+            temp = "output";
+            temp.strike();
+            outNode.innerHTML = outNode.innerHTML.replaceAll(target,temp);
+        }
+
+        else if (command == 3) {
+            // Strike a String
+            replaceWith = target.strike();
+            outNode.innerHTML = outNode.innerHTML.replaceAll(target,replaceWith);
+        }
+        else if (command == 4) {
+            // Amend an entire section
+        }
+        else if (command == 5) {
+            // Append new no target
+        }
+        else if (command == 6) {
+            // Append new with target
+        }
+
         document.body.appendChild(outNode);  
     }
 }
