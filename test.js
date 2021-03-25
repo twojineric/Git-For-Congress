@@ -5,26 +5,29 @@ const parseString = require('xml2js').parseString;
 const { JSDOM } = jsdom;
 require('dotenv').config();
 
-//getBill("https://api.govinfo.gov/packages/BILLS-117hr1319enr/htm?api_key=process.env.GOVINFO_KEY");
-//textAndLink("https://uscode.house.gov/view.xhtml?hl=false&edition=prelim&req=granuleid%3AUSC-2016-title2-section1954&num=0");
-getBillHTML("https://www.govinfo.gov/content/pkg/USCODE-2015-title26/html/USCODE-2015-title26-subtitleA-chap1-subchapA-partII-sec11.htm");
-//getBill("http://uscode.house.gov/quicksearch/get.plx?title=26&section=280F");
-getXMLURL("hr1", 115);
 
-//gets the url leading to the text of the bill provided. Prints the latest version.
-//ex HR 3298 from 115th would be ("hr3298", 115)
-async function getXMLURL(billid, congress)
-{
-    let url = `https://api.propublica.org/congress/v1/${congress}/bills/${billid}.json`
-    await fetch(url, {
-        headers: {"X-API-Key": process.env.PROPUBLICA_KEY}
-    })
-    .then(res => res.json())
-    .then(body => console.log(body.results[0].versions[0].url));
-}
+getBillHTML("https://www.congress.gov/117/bills/s499/BILLS-117s499is.xml", "id2FA6EB19677248028AA76CDAC5FB9822");
+uscToTXT("https://uscode.house.gov/view.xhtml?hl=false&edition=2016&req=granuleid%3AUSC-prelim-title26-section11&num=0");
+
 
 //goes to the html display of a bill and writes the text to a file.
-async function getBillHTML(url)
+async function getBillHTML(url, id)
+{
+    await fetch(url)
+    .then(res => res.text())
+    .then(body => {
+        const { window } = new JSDOM(body, {
+            contentType: "text/xml"
+        });
+        const elem = window.document.getElementById(id);
+        let xref = elem.getElementsByTagName('external-xref')[0];
+
+        console.log(elem.outerHTML);
+        console.log(xref.attributes["parsable-cite"].nodeValue);
+    });
+}
+
+async function uscToTXT(url)
 {
     await fetch(url)
     .then(res => res.text())
@@ -39,6 +42,7 @@ async function getBillHTML(url)
                 if(name == 'A')
                 {
                     wstream.write(`${node.name}`);
+                    if(node.name == "sourcecredit") return wstream.close();
                 }
                 wstream.write(`${node.textContent}\n`);
             }
