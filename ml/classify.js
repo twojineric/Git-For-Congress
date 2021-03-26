@@ -49,7 +49,7 @@ function interpret(phrase)
     };
 }
 
-let options = ["strike_noIns_section", "strike_noIns_string", "strike_insert", "amend_full", "append_new_with_target", "append_new_no_target"];
+let options = ["strike_insert", "strike_noIns_string", "strike_noIns_section", "amend_full", "append_new_with_target", "append_new_no_target"];
 //takes in a string, runs it through nlu
 function handleMessage(message)
 {
@@ -93,15 +93,15 @@ function processStr(string, commandNum)
     bill = string.substring(0, indexBill).trim();
     let indexStrike = string.indexOf("by striking") + 12;
 
-    if(commandNum == 2) //strike_insert
+    if(commandNum == 0) //strike_insert
     {
         let indexReplace = string.indexOf("and inserting") + 14;
         strike = string.substring(indexBill, indexReplace).match(/“([^“”]+)”/)[1].trim();
         repl = string.substring(indexReplace).match(/“([^“”]+)”/)[1].trim();
         console.log([commandNum, bill, strike, repl]);
-        return [commandNum, bill, strike, repl];
+        return [commandNum, bill, repl, strike];
     }
-    else if(commandNum == 0) //strike_noIns_section
+    else if(commandNum == 2) //strike_noIns_section
     {
         repl = string.substring(indexStrike).trim();
         console.log([commandNum, bill, repl]);
