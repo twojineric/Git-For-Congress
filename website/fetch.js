@@ -109,7 +109,7 @@ function getLink() {
             .then(resp => resp.json())
             .then(body => {
                 let usc = document.createElement('p');
-                usc.textContent = "USC TEXT: \n" + body.file;
+                usc.textContent = body.file;
                 document.body.appendChild(usc);
             })
         });
