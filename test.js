@@ -5,10 +5,8 @@ const parseString = require('xml2js').parseString;
 const { JSDOM } = jsdom;
 require('dotenv').config();
 
-
 //getBillHTML("https://www.congress.gov/117/bills/s499/BILLS-117s499is.xml", "id2FA6EB19677248028AA76CDAC5FB9822");
 uscToTXT("https://uscode.house.gov/view.xhtml?req=(title:26%20section:246%20edition:2018)");
-
 
 //goes to the html display of a bill and writes the text to a file.
 async function getBillHTML(url, id)
