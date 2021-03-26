@@ -22,19 +22,8 @@ function parseSectionText()
     let object = json.toLowerCase();
     let section = vals[0].value;
 
-    let location = 'substructure-location';
-    for(let i = 0; i < section.length; i++)
-    {
-        location += '_' + section.charAt(i).toLowerCase();
-        /*
-        if(i > 0)
-            location += '_' + section.charAt(i).toUpperCase();
-        else if(i == 0)
-            location += '_' + section.charAt(i).toLowerCase();
-        else
-            location += '_' + section.charAt(i);
-        */
-    }
+    let location = 'substructure-location' + '_' + section.toLowerCase();
+
 
     let origLoc = location;
     let index = object.indexOf(location);
