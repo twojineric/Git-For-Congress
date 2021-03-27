@@ -5,6 +5,7 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const classify = require("./classify.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,6 +14,11 @@ app.use(cors());
 app.options('*', cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static('public')); //send html
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
 
 app.post('/getxml', async function(request, response)
 {
@@ -40,11 +46,12 @@ app.post('/getxml', async function(request, response)
         }
         //remove all other tags except quotes.
         text = text.replace(new RegExp('<quote>', 'g'), '“').replace(new RegExp('</quote>', 'g'), '”').replace( /(<([^>]+)>)/ig, ' ');
-        if(qte) text = text + qte; //append the large quoted block to the end.
-
-        let uscode = xref.attributes["parsable-cite"].nodeValue.split('/');  //in the form usc/TITLENUM/SECTIONNUM
+        let arr = classify.handleMessage(text.trim());
+        let uscode = xref.attributes["parsable-cite"].nodeValue.split('/');  //in the form usc/TITLE#/SECTION#
         let respJSON = {
-            txt: text,
+            txt: text.trim(),
+            quote: qte,
+            processArr: arr,
             usc: { title: uscode[1], section: uscode[2], year: yr }
         }
         response.send(respJSON);

@@ -1,0 +1,78 @@
+{
+    "strike_noIns_section": {
+        "inputs": [
+            "Subsection (f) of section 1 is amended by striking paragraph (3)",
+            "Part I of subchapter P of chapter 1 is amended by striking section 1201",
+            "Section 12 is amended by striking paragraphs (4) and (6)",
+            "Section 527(b) is amended by striking paragraph (2)",
+            "Section 1374(b) is amended by striking paragraph (4)",
+            "Section 118 is amended by striking subsections (b), (c), and (d)",
+            "Part III of subchapter O of chapter 1 is amended by striking section 1044",
+            "Part IV of subchapter A of chapter 1 is amended by striking subparts H, I, and J",
+            "Subpart D of part I of subchapter L is amended by striking section 815"
+        ],
+        "answer": "strike_noIns_section"
+    },
+    "strike_noIns_string": {
+        "inputs": [
+            "Section 453A(c)(3) is amended by striking “or 1201 (whichever is appropriate)”",
+            "(a) In general Subparagraph (A) of section 36B(c)(1) of the Internal Revenue Code of 1986 is amended by striking “but does not exceed 400 percent” .",
+            "Section 1016(a)(23) is amended by striking “1044,”",
+            "(F)  Section 691(c)(4) is amended by striking “1201,”",
+            "Section 1351(i)(3) is amended by striking “or the operations loss deduction under section 810,”"
+        ],
+        "answer": "strike_noIns_string"
+    },
+    "strike_insert": {
+        "inputs": [
+            "Section 1445(e)(1) is amended by striking “35 percent” and inserting “the highest rate of tax in effect for the taxable year under section 11(b)”",
+            "Section 7518(g)(6)(A) is amended by striking “With respect to the portion” and inserting “In the case of a taxpayer other than a corporation, with respect to the portion”",
+            "Section 243(a)(1) is amended by striking “70 percent” and inserting “50 percent”",
+            "Section 179(b)(1) is amended by striking “$500,000” and inserting “$1,000,000”",
+            "Section 1031(a)(1) is amended by striking “property” each place it appears and inserting “real property”",
+            "The heading of section 1031 is amended by striking “PROPERTY” and inserting “REAL PROPERTY”.",
+            "Subparagraph (A) of section 274(j)(3) is amended by striking “The term” and inserting the following “(i) IN GENERAL. The term”",
+            "Section 6401(b)(1) is amended by striking “G, H, I, and J” and inserting “and G”",
+            "by striking “2009” each place such term appears and inserting “2021”",
+            "Section 465(c)(7)(D)(v)(II) is amended by striking “section 806(b)(3)” and inserting “section 453B(e)(3)”",
+            "Section 1831(1) of such title is amended—(1) in subparagraph (B)—(A) by striking “subchapter III of this chapter” and inserting “section 1821 of this title”",
+            "Section 2112(a) of the CARES Act (15 U.S.C. 9030(a)) is amended by striking “March 14, 2021” and inserting “September 6, 2021”",
+            "in section 3009, by striking “date of enactment of this Act” each place it appears and inserting “date of the enactment of section 3003(d)”"
+        ],
+        "answer": "strike_insert"
+    },
+    "amend_full": {
+        "inputs": [
+            "Subsection (a) of section 47 is amended to read as follows",
+            "Section 47(c) is amended in paragraph (1) in subparagraph (A) by amending clause (iii) to read as follows",
+            "Section 805(b)(2)(A)(iv) is amended to read as follows",
+            "Paragraph (1) of section 807(f) is amended to read as follows",
+            "The State Small Business Credit Initiative Act of 2010 (12 U.S.C. 5701 et seq.) is amended—(A) in section 3003—(i) in subsection (b)—(I) by amending paragraph (1) to read as follows",
+            "Section 884 of the Homeland Security Act of 2002 (6 U.S.C. 464) is amended to read as follows",
+            "(c) Expansion of applicable employer (1) In general Section 162(m)(2) is amended to read as follows"
+        ],
+        "answer": "amend_full"
+    },
+    "append_new_with_target": {
+        "inputs": [
+            "Subpart B of part III of subchapter A of chapter 61 is amended by inserting after section 6050W the following new section",
+            "Section 118 is amended by inserting after subsection (a) the following new subsections",
+            "Subsection (a) of section 101 is amended by inserting after paragraph (2) the following new paragraph",
+            "The National Voter Registration Act of 1993 (52 U.S.C. 20501 et seq.) is amended by inserting after section 6 the following new section",
+            "The Victims of Crime Act of 1984 is amended by adding after section 1404E (42 U.S.C. 10603e) the following",
+            "Section 6103(i)(1) of the Internal Revenue Code of 1986 is amended—(1) by inserting “or pertaining to the case of a missing or exploited child,” after “may be a party,” in subparagraph (A)(i"
+
+        ],
+        "answer": "append_new_with_target"
+    },
+    "append_new_no_target": {
+        "inputs": [
+            "Subpart D of part IV of subchapter A of chapter 1 is amended by adding at the end the following new section",
+            "Section 832(b)(5)(B) is amended by inserting at the end the following new sentence",
+            "Subchapter D of chapter 42 is amended by adding at the end the following new section",
+            "Subchapter III of chapter 18 of title 38, United States Code, is amended by adding at the end the following new section",
+            "Section 303(a) of the Help America Vote Act of 2002 (52 U.S.C. 21083(a)) is amended by adding at the end the following new paragraph"
+        ],
+        "answer": "append_new_no_target"
+    }
+}

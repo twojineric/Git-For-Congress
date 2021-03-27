@@ -25,7 +25,7 @@ function getLink() {
     lenBefore = document.body.childNodes.length;
 
     fetch(url, {
-        headers: {"X-API-Key": API_KEY}
+        headers: {"X-API-Key": "4FGVYsQBIq2xC5fjWcNSMH3QszIi3y6S6BpHjD08"}
     })
     .then(res => res.json())
     .then(function(data) {
@@ -61,8 +61,10 @@ function getLink() {
         }
     })
 
-    function clear(length) {
-        while(length != 0 && document.body.childNodes.length > length) {
+    function clear(length)
+    {
+        while(length != 0 && document.body.childNodes.length > length)
+        {
             document.body.removeChild(document.body.childNodes[length]);
         }
     }
@@ -93,13 +95,21 @@ function getLink() {
             body: JSON.stringify(j)
         })
         .then(resp => resp.json())
-        .then(body => {
-            let e = document.createElement('p');
+        .then(async body => {
+            let e = document.createElement('p'); //dumping text
             e.textContent = body.txt;
             jXml = e.textContent;
             document.body.appendChild(e);
 
-            fetch("http://localhost:3000/getUSC", {
+            let f = document.createElement('p'); //dumping quote
+            f.textContent = body.quote;
+            document.body.appendChild(f);
+
+            let g = document.createElement('p'); //dumping command array
+            g.textContent = `${body.processArr[0]}, ${body.processArr[1]}, ${body.processArr[2]}`;
+            document.body.appendChild(g);
+
+        await fetch("http://localhost:3000/getUSC", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -109,7 +119,7 @@ function getLink() {
             .then(resp => resp.json())
             .then(body => {
                 let usc = document.createElement('p');
-                usc.textContent = "USC TEXT: \n" + body.file;
+                usc.textContent = body.file;
                 document.body.appendChild(usc);
             })
         });

@@ -1,0 +1,28 @@
+{
+  "name": "git-for-congress",
+  "version": "1.0.0",
+  "description": "Puts congressional bills in context. Find out what your lawmakers are actually changing",
+  "main": "test.js",
+  "scripts": {
+    "start": "node express_file.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twojineric/Git-For-Congress.git"
+  },
+  "author": "Eric Jin, Jerry Lu, Iain Ro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/twojineric/Git-For-Congress/issues"
+  },
+  "homepage": "https://github.com/twojineric/Git-For-Congress#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsdom": "^16.5.1",
+    "natural": "^5.0.0",
+    "node-fetch": "^2.6.1",
+    "xml2js": "^0.4.23"
+  }
+}
