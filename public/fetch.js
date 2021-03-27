@@ -123,7 +123,6 @@ async function getLink() {
             jXml = e.textContent;
             if(body.processArr != null) {
                 var tempBill = body.processArr[1].substring(3).trim();
-                console.log(tempBill);
                 if(body.quote != null) {
                     tempBill = tempBill.concat(":" 
                         + body.quote.substring(1,body.quote.length-1).trim());
@@ -208,8 +207,6 @@ async function getLink() {
             vals = findSection();
             target = parseSectionText();            
             temp = target.strike();
-            console.log(target);
-            console.log(temp);
             outNode.innerHTML = outNode.innerHTML.replace(target,temp).trim();
         }
         else if (command == 2) {
