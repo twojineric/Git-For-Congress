@@ -41,8 +41,6 @@ async function getLink() {
     var url = "https://api.propublica.org/congress/v1/";
     url = url.concat(h2, "/bills/");
     url = url.concat(h1,".json");
-    document.getElementById("p1").innerHTML="<b>Input1:</b> "+h1
-        +" <b>Input2:</b> "+h2+" <b>URL:</b> "+url+"<br>";
     
     lenBefore = document.body.childNodes.length;    
 
