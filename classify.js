@@ -49,7 +49,7 @@ function interpret(phrase)
     };
 }
 
-let options = ["strike_insert", "strike_noIns_string", "strike_noIns_section", "amend_full", "append_new_with_target", "append_new_no_target"];
+let options = ["strike_insert", "strike_noIns_section", "strike_noIns_string", "amend_full", "append_new_no_target", "append_new_with_target"];
 //takes in a string, runs it through nlu
 function handleMessage(message)
 {
@@ -98,22 +98,22 @@ function processStr(string, commandNum)
         let indexReplace = string.indexOf("and inserting") + 14;
         strike = string.substring(indexBill, indexReplace).match(/“([^“”]+)”/)[1].trim();
         repl = string.substring(indexReplace).match(/“([^“”]+)”/)[1].trim();
-        console.log([commandNum, bill, strike, repl]);
+        console.log([commandNum, bill, repl, strike]);
         return [commandNum, bill, repl, strike];
     }
-    else if(commandNum == 2) //strike_noIns_section
+    else if(commandNum == 1) //strike_noIns_section
     {
         repl = string.substring(indexStrike).trim();
         console.log([commandNum, bill, repl]);
         return [commandNum, bill, repl];
     }
-    else if(commandNum == 1) //strike_noIns_string
+    else if(commandNum == 2) //strike_noIns_string
     {
         repl = string.substring(indexStrike).match(/“([^“”]+)”/)[1].trim();
         console.log([commandNum, bill, repl]);
         return [commandNum, bill, repl];
     }
-    else if(commandNum == 3 || commandNum == 4 || commandNum == 5) //amend_full, append_new_with_target, append_new_no_target
+    else if(commandNum == 3 || commandNum == 4 || commandNum == 5) //amend_full, append_new_no_target, append_new_with_target
     {
         bill = string.substring(0, indexBill).trim();
         console.log([commandNum, bill]);

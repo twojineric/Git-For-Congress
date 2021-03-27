@@ -9,7 +9,10 @@
             "Section 118 is amended by striking subsections (b), (c), and (d)",
             "Part III of subchapter O of chapter 1 is amended by striking section 1044",
             "Part IV of subchapter A of chapter 1 is amended by striking subparts H, I, and J",
-            "Subpart D of part I of subchapter L is amended by striking section 815"
+            "Subpart D of part I of subchapter L is amended by striking section 815",
+            "Section 3401 is amended by striking subsection (e)",
+            "Section 55 is amended by striking subsection (e)",
+            "Section 848 is amended by striking subsection (i)"
         ],
         "answer": "strike_noIns_section"
     },

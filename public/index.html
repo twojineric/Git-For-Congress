@@ -7,31 +7,24 @@
     <title>Git for Congress</title>
 </head>
 
-<body>
-    <h1>Git for Congress</h1>
-    <script src="fetch.js"></script>
+<style>
+    pre {
+        white-space: pre-wrap;
+    }
+</style>
 
-    Search Bill:
+<body>
+    <h1>Git for Congress</h1>    
+    <script src="fetch.js"></script>
+    <script src="test.js"></script>
+
+    Search Bill: 
     <input type="text" id="head1" placeholder="hr115"/>
     <input type="text" id="head2" placeholder="115"/>
-    <input type="text" id="head3" placeholder="id">
+    <input type="text" id="head3" placeholder="URL"/>
     <button onclick="getLink()" id="button">Submit</button>
 
     <p id="p1"></p>
     <p id="p2"></p>
-
-    <!-- Test String Methods
-    <p id="p3"></p>
-    <script>
-        var paragr = document.getElementById("p3");
-        paragr.innerHTML = "testThisMethod";
-        var replace = "Hello";
-        var test = "This";
-        test = test.strike();
-        test = test + " " + replace;
-        paragr.innerHTML = paragr.innerHTML.replace("This",test);
-    </script>
-    -->
-
 </body>
 </html>
