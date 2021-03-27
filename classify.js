@@ -3,7 +3,7 @@ const NLP = require('natural');
 const classifier = new NLP.LogisticRegressionClassifier();
 
 // Load our training data
-const trainingData = parseTrainingData("./trainingData.json");
+const trainingData = parseTrainingData("./tests/trainingData.json");
 
 // For each of the labels in our training data,
 // train and generate the classifier
@@ -15,7 +15,7 @@ Object.keys(trainingData).forEach((element, key) => {
     if (i === Object.keys(trainingData).length)
     {
         classifier.train();
-        const filePath = './classifier.json';
+        const filePath = './tests/classifier.json';
         classifier.save(filePath, (err, classifier) => {
             if(err) console.error(err);
             console.log('Created a Classifier file in ', filePath);
@@ -73,9 +73,9 @@ function handleMessage(message)
 
 
 //testing
-handleMessage('In General.—Subsection (b) of section 11 is amended to read as follows:');
-handleMessage('(a) Dividends received by corporations (1) In general Section 243(a)(1) is amended by striking “70 percent” and inserting “50 percent”.');
-handleMessage('(3) Conforming amendment The heading for section 243(c) is amended by striking “ Retention of 80-percent Dividend Received Deduction ” and inserting “ Increased Percentage ”');
+//handleMessage('In General.—Subsection (b) of section 11 is amended to read as follows:');
+//handleMessage('(a) Dividends received by corporations (1) In general Section 243(a)(1) is amended by striking “70 percent” and inserting “50 percent”.');
+//handleMessage('(3) Conforming amendment The heading for section 243(c) is amended by striking “ Retention of 80-percent Dividend Received Deduction ” and inserting “ Increased Percentage ”');
 
 //takes a file, parses and return a json object
 function parseTrainingData(filePath)
