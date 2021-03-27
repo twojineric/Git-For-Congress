@@ -3,7 +3,7 @@ const NLP = require('natural');
 const classifier = new NLP.LogisticRegressionClassifier();
 
 // Load our training data
-const trainingData = parseTrainingData("./trainingData.json");
+const trainingData = parseTrainingData("./tests/trainingData.json");
 
 // For each of the labels in our training data,
 // train and generate the classifier
