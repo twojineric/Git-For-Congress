@@ -204,10 +204,44 @@ function printingObjects(testObj)
 
 }
 
+function findSection()
+{
+    let sentence = vals[1].value.toLowerCase();
+    let origSentence = vals[1].value;
+
+    let startInd = sentence.indexOf('(');
+    let endInd = sentence.indexOf(')');
+    let currentInd = startInd;
+
+    while(endInd < sentence.length)
+    {
+        if(sentence.charAt(endInd+1) == '(')
+        {
+            currentInd = endInd+1;
+            endInd = sentence.indexOf(')', currentInd);
+        }
+        else
+        {
+            break;
+        }
+    }
+    let code = origSentence.substring(startInd, endInd);
+
+    code = code.replaceAll('(', '');
+    code = code.replaceAll(')', '_');
+
+    document.getElementById('test').innerHTML = code;
+}
+
 function checker()
 {
     event.preventDefault();
     document.getElementById('inputfile').value = null;
     vals = document.getElementById('form1');
+
+    if(vals[1].value)
+    {
+        findSection();
+    }
 }
 
