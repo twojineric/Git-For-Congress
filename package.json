@@ -4,7 +4,7 @@
   "description": "Puts congressional bills in context. Find out what your lawmakers are actually changing",
   "main": "test.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node express_file.js"
   },
   "repository": {
     "type": "git",
