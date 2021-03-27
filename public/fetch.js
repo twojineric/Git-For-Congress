@@ -25,7 +25,7 @@ function getLink() {
     lenBefore = document.body.childNodes.length;
 
     fetch(url, {
-        headers: {"X-API-Key": "4FGVYsQBIq2xC5fjWcNSMH3QszIi3y6S6BpHjD08"}
+        headers: {"X-API-Key": API_KEY}
     })
     .then(res => res.json())
     .then(function(data) {
