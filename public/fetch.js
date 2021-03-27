@@ -2,7 +2,7 @@ var lenBefore = 0;
 var lenBefore2 = 0;
 var lenBefore3 = 0;
 var warning = true;
-var ident;
+var ident,commandArr;
 
 async function getLink() {            
     lenBefore2 = 0;
@@ -21,6 +21,10 @@ async function getLink() {
     document.getElementById("head2").addEventListener("input",warnTrue);
     document.getElementById("head3").addEventListener("input",warnTrue);
     var h3 = document.getElementById("head3").value.trim();
+    if(h1 == "" || h2 == "" || h3 == "") {
+        alert("Please fill all the input fields");
+        return;
+    }
     var pound = h3.indexOf("#");
     var bill = h3.indexOf("/"+h2);
     var cong = h3.indexOf("/"+h1.replace(/\D/g, "")+"/");
@@ -43,7 +47,7 @@ async function getLink() {
     lenBefore = document.body.childNodes.length;    
 
     await fetch(url, {
-        headers: {"X-API-Key": API_KEY}
+        headers: {"X-API-Key": "4FGVYsQBIq2xC5fjWcNSMH3QszIi3y6S6BpHjD08"}
     })
     .then(res => res.json())
     .then(function(data) {
@@ -99,7 +103,6 @@ async function getLink() {
         lenBefore2 = document.body.childNodes.length;
 
         element = document.createElement("p");
-        document.body.appendChild(element);
         
         let j = {
             url: xml,
@@ -118,7 +121,19 @@ async function getLink() {
             let e = document.createElement('p');
             e.textContent = body.txt;
             jXml = e.textContent;
-            document.body.appendChild(e);
+            if(body.processArr != null) {
+                var tempBill = body.processArr[1].substring(3).trim();
+                console.log(tempBill);
+                if(body.quote != null) {
+                    tempBill = tempBill.concat(":" 
+                        + body.quote.substring(1,body.quote.length-1).trim());
+                }
+                commandArr = [body.processArr[0], tempBill, body.processArr[2], body.processArr[3]];
+                console.log(commandArr);
+            }
+            else {
+                alert("Unable to classify changes so no changes will be made to the section.");
+            }
 
             await fetch("http://localhost:3000/getUSC", {
                 method: 'POST',
@@ -135,14 +150,13 @@ async function getLink() {
 
         document.body.appendChild(document.createElement("br"));
         var para1 = document.createElement("p");
-        para1.innerHTML = "<b>Input Section Number</b>";
+        para1.innerHTML = "<b>Input Section with Spaces</b> ex. b 1 a";
         document.body.appendChild(para1);
 
         var input1 = document.createElement("input");
         input1.type = "text";
         input1.id = "inp1";
         input1.placeholder = "Section";
-        input1.myParam = jXml;
         document.body.appendChild(input1);
         document.body.appendChild(document.createElement("br"));        
 
@@ -159,48 +173,82 @@ async function getLink() {
         clear(lenBefore3);
         vals = document.getElementById("inp1").value;
         json = document.getElementById("but1").myParam;
-        var changes = document.getElementById("inp1").myParam;
+        console.log(json);
         lenBefore3 = document.body.childNodes.length;
 
         var para1 = document.createElement("p");
-        var outNode = document.createElement("p");
+        var outNode = document.createElement("pre");
         outNode.innerHTML = parseSectionText();
         para1.innerHTML = `<b>Section ${section}:</b>`;
         document.body.appendChild(para1);
         
         
         var command,target,replaceWith,temp;
-        command = 0;
-        
-        if(command == 1) {
+        if(commandArr != null) {
+            command = commandArr[0];
+        }
+        else {
+            command = -1;
+        }
+
+
+        if(command == 0) {
             // Strike and Insert
+            replaceWith = commandArr[2];
+            target = commandArr[3];
             temp = target;
             temp = temp.strike();
             temp = temp + " " + replaceWith;
-            outNode.innerHTML = outNode.innerHTML.replaceAll(target,temp);
+            outNode.innerHTML = outNode.innerHTML.replaceAll(target,temp).trim();
+        }
+        else if (command == 1) {
+            // Strike a Section
+            origSentence = commandArr[2];
+            sentence = origSentence.toLowerCase();
+            vals = findSection();
+            target = parseSectionText();            
+            temp = target.strike();
+            console.log(target);
+            console.log(temp);
+            outNode.innerHTML = outNode.innerHTML.replace(target,temp).trim();
         }
         else if (command == 2) {
-            // Strike a Section
-            // Iain's Function to return a section
-            temp = "output";
-            temp.strike();
-            outNode.innerHTML = outNode.innerHTML.replaceAll(target,temp);
-        }
-
-        else if (command == 3) {
             // Strike a String
+            target = commandArr[2];
             replaceWith = target.strike();
-            outNode.innerHTML = outNode.innerHTML.replaceAll(target,replaceWith);
+            outNode.innerHTML = outNode.innerHTML.replaceAll(target,replaceWith).trim();
+        }
+        else if (command == 3) {
+            // Amend an entire section
+            origSentence = commandArr[1];
+            sentence = origSentence.toLowerCase();
+            vals = findSection();
+            target = parseSectionText();
+            temp = commandArr[1].substring(commandArr[1].indexOf(":")+1).trim();
+            temp = "*Amended*<br>" + temp;
+            outNode.innerHTML = outNode.innerHTML.replace(target,temp).trim();
+            
         }
         else if (command == 4) {
-            // Amend an entire section
-            outNode.innerHTML = outNode.innerHTML.replaceAll(target,replaceWith);
-        }
-        else if (command == 5) {
             // Append new no target
+            origSentence = commandArr[1];
+            sentence = origSentence.toLowerCase();
+            vals = findSection();
+            target = parseSectionText();
+            replaceWith = commandArr[1].substring(commandArr[1].indexOf(":")+1).trim();
+            replaceWith = target + "<br> <b>*New Addition*</b> <br>"+replaceWith + "<br>";
+            outNode.innerHTML = outNode.innerHTML.replace(target,replaceWith).trim();
         }
-        else if (command == 6) {
-            // Append new with target
+        else if(command == 5) {
+            // Append new target
+            origSentence = commandArr[1].substring(commandArr[1].indexOf(")")+1);
+            sentence = origSentence.toLowerCase();            
+            vals = findSection();
+            target = parseSectionText();
+            if(outNode.innerHTML == target) {
+                replaceWith = commandArr[1].substring(commandArr[1].indexOf(":")+1).trim();
+                outNode.innerHTML = outNode.innerHTML.concat("<br> <b>*New Addition*</b> <br>"+replaceWith);
+            }
         }
 
         document.body.appendChild(outNode);  

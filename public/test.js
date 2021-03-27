@@ -1,11 +1,9 @@
-let json; 
-let vals;
-let section;
+let json,vals,section,sentence,origSentence;
+
 
 function parseSectionText()
 {
     let object = json;
-    console.log(object);
 
     // Any delimiters work and 1st and 3rd characters are case insensitive
     section = vals.trim().split(",").join("_").split(" ").join("_");
@@ -50,7 +48,7 @@ function parseSectionText()
     
     statement += json.substring(index + location.length, nextIndex);
 
-    return statement;
+    return statement.trim();
 }
 
 function parseSection()
@@ -142,39 +140,33 @@ function parseSection()
     }
 }
 
-function findSection(testObj, secNumber)
+function findSection()
 {
-    let currentSection = testObj;
-    let finalSection;
+    //let sentence = vals[1].value.toLowerCase();
+    //let origSentence = vals[1].value;
 
-    let currentKeys = Object.keys(testObj);
-    let currentVals = Object.values(testObj);
-    let check = false;
+    let startInd = sentence.indexOf('(');
+    let endInd = sentence.indexOf(')');
+    let currentInd = startInd;
 
-    let returnVal = 0;
-
-    for(let i = 0; i < currentKey.length; i++)
+    while(endInd < sentence.length)
     {
-        if(currentKey[i] = 'section')
+        if(sentence.charAt(endInd+1) == '(')
         {
-            currentSection = currentSection[currentKey[i]][i];
-            returnVal[currentKey[i]] = curentKey[i];
-            for(let j = 0; j < currentSection['section'].length; j++)
-            {
-                if(currentSection['section'][j]['enum'] == secNumber)
-                {
-                    
-                    return returnVal['sectionNum'] = secNumber;
-                }
-            }
+            currentInd = endInd+1;
+            endInd = sentence.indexOf(')', currentInd);
         }
         else
         {
-
+            break;
         }
     }
+    let code = origSentence.substring(startInd, endInd);
+
+    code = code.replaceAll('(', '');
+    code = code.replaceAll(')', '_');
     
-    
+    return code;
 }
 
 function printingObjects(testObj)
