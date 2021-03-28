@@ -224,9 +224,9 @@ async function getLink() {
             vals = findSection();
             target = parseSectionText();
             temp = commandArr[1].substring(commandArr[1].indexOf(":")+1).trim();
-            temp = "*Amended*<br>" + temp;
-            outNode.innerHTML = outNode.innerHTML.replace(target,temp).trim();
-            
+            temp = "<b>*Amended*</b><br>" + temp;
+            temp = "<b>*Original*</b><br>" + target + "<br><br>" + temp;
+            outNode.innerHTML = outNode.innerHTML.replace(target,temp).trim();   
         }
         else if (command == 4) {
             // Append new no target
