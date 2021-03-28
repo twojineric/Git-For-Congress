@@ -235,7 +235,7 @@ async function getLink() {
             vals = findSection();
             target = parseSectionText();
             replaceWith = commandArr[1].substring(commandArr[1].indexOf(":")+1).trim();
-            replaceWith = target + "<br><b>*New Addition*</b> <br>"+replaceWith + "<br>";
+            replaceWith = target + "<br><b>*New Addition*</b><br>"+replaceWith + "<br>";
             outNode.innerHTML = outNode.innerHTML.replace(target,replaceWith).trim();
         }
         else if(command == 5) {
@@ -246,7 +246,7 @@ async function getLink() {
             target = parseSectionText();
             if(outNode.innerHTML == target) {
                 replaceWith = commandArr[1].substring(commandArr[1].indexOf(":")+1).trim();
-                outNode.innerHTML = outNode.innerHTML.concat("<br><b>*New Addition*</b> <br>"+replaceWith).trim();
+                outNode.innerHTML = outNode.innerHTML.concat("<br><b>*New Addition*</b><br>"+replaceWith).trim();
             }
         }
 
