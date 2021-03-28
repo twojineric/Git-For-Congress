@@ -175,10 +175,7 @@ async function getLink() {
 
         var para1 = document.createElement("p");
         var outNode = document.createElement("pre");
-        outNode.innerHTML = parseSectionText();
-        para1.innerHTML = `<b>Section ${section}:</b>`;
-        document.body.appendChild(para1);
-        
+        outNode.innerHTML = parseSectionText();       
         
         var command,target,replaceWith,temp;
         if(commandArr != null) {
@@ -188,6 +185,13 @@ async function getLink() {
             command = -1;
         }
 
+        if(outNode.innerHTML != "Invalid Section Input") {
+            para1.innerHTML = `<b>Section ${section}:</b>`;
+            document.body.appendChild(para1);
+        }
+        else {
+            command = -1;
+        }
 
         if(command == 0) {
             // Strike and Insert

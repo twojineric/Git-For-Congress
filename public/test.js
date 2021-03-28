@@ -27,7 +27,9 @@ function parseSectionText()
 
     let origLoc = location;
     let index = object.indexOf(location);
-    
+    if(index == -1) {
+        return "Invalid Section Input";
+    }
 
     let nextIndex = object.indexOf(location, index+1);
     let statement = '';
